@@ -1,0 +1,7 @@
+store_id,name,city,store_type,fulfillment_center,capacity_sqft
+"indiranagar","Indiranagar","Bangalore","Flagship","FC-BLR-01","1200"
+"vasant-vihar","Vasant Vihar","New Delhi","Flagship","FC-DEL-01","900"
+"navrangpura","Navrangpura","Ahmedabad","Standard","FC-AMD-01","750"
+"lakeshore","Lakeshore Mall","Hyderabad","Mall","FC-HYD-01","600"
+"sarath-city","Sarath City","Hyderabad","Mall","FC-HYD-02","600"
+"warehouse","Central Warehouse","Bangalore","Warehouse","WH-BLR-MAIN","15000"

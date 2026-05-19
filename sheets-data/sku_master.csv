@@ -1,0 +1,6 @@
+sku_id,name,colorway,rrp,lead_time_days,launch_date,lifecycle_stage
+"madagascar","Madagascar","Forest Green / Cream","8999","10","2026-01-15","growth"
+"mango-chilli","Mango Chilli","Burnt Orange / Red","7999","10","2025-11-01","mature"
+"chestnut","Chestnut","Brown / Tan","8499","14","2025-09-01","mature"
+"neptune","Neptune","Navy / Off-White","9499","12","2025-08-01","declining"
+"saffron","Saffron","Turmeric / White","8999","10","2026-03-15","launch"
