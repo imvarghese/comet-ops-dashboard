@@ -19,11 +19,11 @@ const STORES = [
 ]
 
 const SKUS = [
-  { id: 'madagascar',   name: 'Madagascar',   colorway: 'Forest Green / Cream', rrp: 8999, lead_days: 10, launch: '2026-01-15', stage: 'growth'   },
-  { id: 'mango-chilli', name: 'Mango Chilli', colorway: 'Burnt Orange / Red',   rrp: 7999, lead_days: 10, launch: '2025-11-01', stage: 'mature'   },
-  { id: 'chestnut',     name: 'Chestnut',     colorway: 'Brown / Tan',          rrp: 8499, lead_days: 14, launch: '2025-09-01', stage: 'mature'   },
-  { id: 'neptune',      name: 'Neptune',      colorway: 'Navy / Off-White',     rrp: 9499, lead_days: 12, launch: '2025-08-01', stage: 'declining'},
-  { id: 'saffron',      name: 'Saffron',      colorway: 'Turmeric / White',     rrp: 8999, lead_days: 10, launch: '2026-03-15', stage: 'launch'   },
+  { id: 'madagascar',   name: 'Madagascar',      colorway: 'Forest Green / Cream', rrp: 4299, lead_days: 10, launch: '2026-01-15', stage: 'growth'   },
+  { id: 'mango-chilli', name: 'Mango Chilli',   colorway: 'Burnt Orange / Red',   rrp: 4899, lead_days: 10, launch: '2025-11-01', stage: 'mature'   },
+  { id: 'chestnut',     name: 'Chestnut',        colorway: 'Brown / Tan',          rrp: 4299, lead_days: 14, launch: '2025-09-01', stage: 'mature'   },
+  { id: 'neptune',      name: 'Neptune',         colorway: 'Navy / Off-White',     rrp: 4299, lead_days: 12, launch: '2025-08-01', stage: 'declining'},
+  { id: 'saffron',      name: 'Apex Cyberpunk',  colorway: 'Turmeric / White',     rrp: 6299, lead_days: 10, launch: '2026-03-15', stage: 'launch'   },
 ]
 
 const SIZES = ['UK6', 'UK7', 'UK8', 'UK9', 'UK10', 'UK11']

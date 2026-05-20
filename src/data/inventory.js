@@ -9,11 +9,11 @@ export const STORES = [
 export const WAREHOUSE = { id: 'warehouse', name: 'Central Warehouse', city: 'Bangalore' }
 
 export const SKUS = [
-  { id: 'madagascar', name: 'Madagascar', colorway: 'Forest Green / Cream', rrp: 8999, leadTimeDays: 10 },
-  { id: 'mango-chilli', name: 'Mango Chilli', colorway: 'Burnt Orange / Red', rrp: 7999, leadTimeDays: 10 },
-  { id: 'chestnut', name: 'Chestnut', colorway: 'Brown / Tan', rrp: 8499, leadTimeDays: 14 },
-  { id: 'neptune', name: 'Neptune', colorway: 'Navy / Off-White', rrp: 9499, leadTimeDays: 12 },
-  { id: 'saffron', name: 'Saffron', colorway: 'Turmeric / White', rrp: 8999, leadTimeDays: 10 },
+  { id: 'madagascar', name: 'Madagascar', colorway: 'Forest Green / Cream', rrp: 4299, leadTimeDays: 10 },
+  { id: 'mango-chilli', name: 'Mango Chilli', colorway: 'Burnt Orange / Red', rrp: 4899, leadTimeDays: 10 },
+  { id: 'chestnut', name: 'Chestnut', colorway: 'Brown / Tan', rrp: 4299, leadTimeDays: 14 },
+  { id: 'neptune', name: 'Neptune', colorway: 'Navy / Off-White', rrp: 4299, leadTimeDays: 12 },
+  { id: 'saffron', name: 'Apex Cyberpunk', colorway: 'Turmeric / White', rrp: 6299, leadTimeDays: 10 },
 ]
 
 export const SIZES = ['UK6', 'UK7', 'UK8', 'UK9', 'UK10', 'UK11']
