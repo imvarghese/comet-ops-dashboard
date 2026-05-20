@@ -41,7 +41,7 @@ const BASE_DEMAND = {
 }
 
 // Warehouse initial stock per SKU per size multiplier
-const WH_BASE = { 'madagascar': 18, 'mango-chilli': 14, 'chestnut': 12, 'neptune': 20, 'saffron': 25 }
+const WH_BASE = { 'madagascar': 60, 'mango-chilli': 50, 'chestnut': 45, 'neptune': 65, 'saffron': 70 }
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -177,6 +177,13 @@ function genStockLevels() {
             Math.round(weeklyTotal * SIZE_WEIGHT[size] * (0.8 + rng() * 0.4))
           )
           stock[store.id][sku.id][size] = Math.max(0, stock[store.id][sku.id][size] - sold)
+        }
+
+        // Vendor PO delivery into warehouse every 4 weeks (simulates inbound replenishment)
+        if (w % 4 === 0) {
+          for (const size of SIZES) {
+            stock['warehouse'][sku.id][size] += jitter(WH_BASE[sku.id] * SIZE_WEIGHT[size] * 2, 0.2)
+          }
         }
 
         // Replenish from warehouse every ~3 weeks if stock is low
