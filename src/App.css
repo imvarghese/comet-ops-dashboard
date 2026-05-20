@@ -1178,16 +1178,17 @@
 .kpi-mini-val {
   font-size: 26px;
   font-weight: 700;
-  color: #f9fafb;
+  color: #a78bfa;
   line-height: 1;
 }
 
 .kpi-mini-label {
-  font-size: 11px;
-  color: #6b7280;
+  font-size: 10px;
+  color: #9ca3af;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 2px;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  font-weight: 600;
 }
 
 .kpi-amber { color: #f59e0b; }
