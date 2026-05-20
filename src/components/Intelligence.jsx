@@ -22,7 +22,7 @@ function ForecastChart({ history, forecast }) {
             <div className="forecast-bar history-bar" style={{ height: `${Math.round((v / max) * 100)}%` }} />
           </div>
           <span className="forecast-label">{WEEK_LABELS[i]}</span>
-          <span className="forecast-val">{v}</span>
+          <span className="forecast-val">{Number(v).toFixed(2)}</span>
         </div>
       ))}
       <div className="forecast-divider" />
@@ -32,7 +32,7 @@ function ForecastChart({ history, forecast }) {
             <div className="forecast-bar projected-bar" style={{ height: `${Math.round((v / max) * 100)}%` }} />
           </div>
           <span className="forecast-label forecast-label-future">{FORECAST_LABELS[i]}</span>
-          <span className="forecast-val forecast-val-future">{v}</span>
+          <span className="forecast-val forecast-val-future">{Number(v).toFixed(2)}</span>
         </div>
       ))}
     </div>
@@ -99,7 +99,7 @@ export default function Intelligence() {
                 <TrendChip direction={direction} pct={pct} />
               </div>
               <div className="trend-signal-bottom">
-                <span className="trend-signal-stat">{totalRecent.toFixed(1)} units/wk network</span>
+                <span className="trend-signal-stat">{totalRecent.toFixed(2)} units/wk network</span>
               </div>
             </div>
           ))}
@@ -140,7 +140,7 @@ export default function Intelligence() {
                     <div className="forecast-sku-color">{sku.colorway}</div>
                   </div>
                   <div className="forecast-card-stats">
-                    <span className="forecast-total">{totalF} projected</span>
+                    <span className="forecast-total">{Number(totalF).toFixed(2)} projected</span>
                     <TrendChip direction={growthPct >= 10 ? 'up' : growthPct <= -10 ? 'down' : 'flat'} pct={growthPct} />
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export default function Intelligence() {
                   <div className="transfer-node transfer-from">
                     <div className="transfer-node-name">{t.fromStore.name}</div>
                     <div className="transfer-node-city">{t.fromStore.city}</div>
-                    <div className="transfer-node-wos">{t.donorWoS}w supply</div>
+                    <div className="transfer-node-wos">{t.donorWoS?.toFixed(2)}w supply</div>
                   </div>
                   <div className="transfer-arrow">
                     <div className="transfer-qty">{t.qty} units</div>
