@@ -32,7 +32,7 @@ export default function WarehouseView() {
           <span className="kpi-value" style={{ fontSize: 24 }}>
             ₹{totalValue.toLocaleString('en-IN')}
           </span>
-          <span className="kpi-sub">at RRP across all SKUs</span>
+          <span className="kpi-sub">at MRP across all SKUs</span>
         </div>
       </div>
 
@@ -50,7 +50,7 @@ export default function WarehouseView() {
                 <th>SKU</th>
                 {SIZES.map(s => <th key={s}>{s}</th>)}
                 <th>Total</th>
-                <th>RRP</th>
+                <th>MRP</th>
                 <th>Stock Value</th>
               </tr>
             </thead>
