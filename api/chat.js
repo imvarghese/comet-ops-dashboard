@@ -1,44 +1,47 @@
-export default async function handler(req) {
-  if (req.method !== 'POST') {
-    return Response.json({ error: 'Method not allowed' }, { status: 405 })
-  }
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
+  if (req.method === 'OPTIONS') return res.status(200).end()
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
-    return Response.json(
-      { error: 'ANTHROPIC_API_KEY is not configured on the server.' },
-      { status: 500 }
-    )
+    return res.status(500).json({ error: 'ANTHROPIC_API_KEY is not configured on the server.' })
   }
 
-  const { systemContext, messages } = await req.json()
+  const { systemContext, messages } = req.body ?? {}
   if (!messages?.length) {
-    return Response.json({ error: 'messages array is required' }, { status: 400 })
+    return res.status(400).json({ error: 'messages array is required' })
   }
 
-  const upstream = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key':         apiKey,
-      'anthropic-version': '2023-06-01',
-      'content-type':      'application/json',
-    },
-    body: JSON.stringify({
-      model:      'claude-sonnet-4-6',
-      max_tokens: 1024,
-      system:     systemContext ?? '',
-      messages,
-    }),
-  })
+  try {
+    const upstream = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key':         apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type':      'application/json',
+      },
+      body: JSON.stringify({
+        model:      'claude-sonnet-4-6',
+        max_tokens: 1024,
+        system:     systemContext ?? '',
+        messages,
+      }),
+    })
 
-  if (!upstream.ok) {
-    const err = await upstream.json().catch(() => ({}))
-    return Response.json(
-      { error: err?.error?.message ?? `Anthropic error ${upstream.status}` },
-      { status: upstream.status }
-    )
+    if (!upstream.ok) {
+      const err = await upstream.json().catch(() => ({}))
+      return res.status(upstream.status).json({
+        error: err?.error?.message ?? `Anthropic error ${upstream.status}`,
+      })
+    }
+
+    const data = await upstream.json()
+    return res.status(200).json({ text: data.content?.[0]?.text ?? 'No response.' })
+  } catch (e) {
+    return res.status(500).json({ error: e.message })
   }
-
-  const data = await upstream.json()
-  return Response.json({ text: data.content?.[0]?.text ?? 'No response.' })
 }
