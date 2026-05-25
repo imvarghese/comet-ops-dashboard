@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useCalc } from '../context/DataContext.jsx'
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY
 
 function buildContext(calc) {
   const {
@@ -55,27 +54,23 @@ function buildContext(calc) {
   return lines.join('\n')
 }
 
-async function callGemini(systemCtx, messages) {
-  const history = messages.slice(0, -1).map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content }],
-  }))
-  const last = messages[messages.length - 1]
-  const body = {
-    systemInstruction: { parts: [{ text: systemCtx }] },
-    contents: [...history, { role: 'user', parts: [{ text: last.content }] }],
-    generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
-  }
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
-    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
-  )
+async function callClaude(systemCtx, messages) {
+  // Skip the initial assistant greeting — Anthropic messages must start with user
+  const apiMessages = messages
+    .filter((m, i) => !(i === 0 && m.role === 'assistant'))
+    .map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ systemContext: systemCtx, messages: apiMessages }),
+  })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err?.error?.message ?? `Gemini API error ${res.status}`)
+    throw new Error(err?.error ?? `API error ${res.status}`)
   }
   const data = await res.json()
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? 'No response received.'
+  return data.text
 }
 
 const QUICK_PROMPTS = [
@@ -105,17 +100,13 @@ export default function ChatView() {
   async function send() {
     const text = input.trim()
     if (!text || loading) return
-    if (!API_KEY) {
-      setError('Set VITE_GEMINI_API_KEY in your .env file to enable the chatbot.')
-      return
-    }
     setInput('')
     setError(null)
     const updated = [...messages, { role: 'user', content: text }]
     setMessages(updated)
     setLoading(true)
     try {
-      const reply = await callGemini(buildContext(calc), updated)
+      const reply = await callClaude(buildContext(calc), updated)
       setMessages(prev => [...prev, { role: 'assistant', content: reply }])
     } catch (e) {
       setError(e.message)
@@ -140,9 +131,6 @@ export default function ChatView() {
             <p className="intel-sub" style={{ margin: 0 }}>Ask anything about inventory, demand, and operations</p>
           </div>
         </div>
-        {!API_KEY && (
-          <span className="data-source-badge badge-low">API key not set · add VITE_GEMINI_API_KEY to .env</span>
-        )}
       </div>
 
       <div className="chat-messages">
